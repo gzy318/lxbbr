@@ -13,15 +13,13 @@ CONFIG_BACKUP="/etc/sysctl.conf.lxbbr.bak"
 
 show_title() {
     clear
-    echo -e "${C}   _      ____   ____  ____   ____   ____  ${N}"
-    echo -e "${C}  | |    / __ \ / __ \|  _ \ / __ \ / __ \ ${N}"
-    echo -e "${C}  | |   | |  | | |  | | |_) | |  | | |  | |${N}"
-    echo -e "${C}  | |___| |__| | |__| |  _ <| |__| | |__| |${N}"
-    echo -e "${C}  |_____\____/ \____/|_| \_\\____/ \____/ ${N}"
-    echo -e "${G}        BBR 管理工具箱 v1.0${N}"
-    echo -e "${Y}    ${U}https://github.com/gzy318/LXBBR${N}"
-    echo -e "${Y}    服务器推荐: ${U}https://www.rainyun.com/xls_${N}"
-    echo -e "${Y}    个人博客: ${U}https://twbk.cn${N}\n"
+    echo -e "${C}═══════════════════════════════════════${N}"
+    echo -e "${G}          LXBBR v1.0${N}"
+    echo -e "${C}        BBR 管理工具箱${N}"
+    echo -e "${Y}     ${U}https://github.com/gzy318/LXBBR${N}"
+    echo -e "${Y}     服务器推荐: ${U}https://www.rainyun.com/xls_${N}"
+    echo -e "${Y}     个人博客: ${U}https://twbk.cn${N}"
+    echo -e "${C}═══════════════════════════════════════${N}\n"
 }
 
 get_distro() {
