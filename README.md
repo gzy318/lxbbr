@@ -184,10 +184,15 @@
 
 ## 快速开始
 
-### 运行主程序（BBR 管理工具箱）
+### 运行安装管理脚本（安装/更新/卸载）
+
+```
+bash <(curl \-s https://raw.githubusercontent.com/gzy318/LXBBR/main/install.sh)
+```
+
+### 运行主程序
 
 使用 `curl`（推荐）：
-
 
 ```
 bash <(curl \-s https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh)
@@ -197,24 +202,16 @@ bash <(curl \-s https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh)
 ```
 wget -qO- https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh | bash
 ```
-### 运行安装管理脚本（安装/更新/卸载）
-
-```
-
-bash <(curl \-s https://raw.githubusercontent.com/gzy318/LXBBR/main/install.sh)
-```
 ### 快捷命令（无需进入菜单）
 
 一键全自动优化：
 
 ```
-
 bash <(curl \-s https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh) install
 ```
 快速查看当前 BBR 状态：
 
 ```
-
 bash <(curl \-s https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh) status
 ```
 
