@@ -222,9 +222,12 @@ bash <(curl \-s https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh) st
 
 
 LXBBR/
-├── lxbbr.sh          # 主程序 —— BBR 管理工具箱
-├── install.sh        # 一键安装/更新/卸载脚本
-└── README.md         # 项目说明文档（本文件）
+
+├── lxbbr.sh # 主程序 —— BBR 管理工具箱
+
+├── install.sh # 一键安装/更新/卸载脚本
+
+└── README.md # 项目说明文档（本文件）
 
 * * *
 
