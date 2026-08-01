@@ -13,13 +13,12 @@ VERSION="1.0"
 
 show_title() {
     clear
-    echo -e "${C}   _      ____   ____  ____   ____   ____  ${N}"
-    echo -e "${C}  | |    / __ \ / __ \|  _ \ / __ \ / __ \ ${N}"
-    echo -e "${C}  | |   | |  | | |  | | |_) | |  | | |  | |${N}"
-    echo -e "${C}  | |___| |__| | |__| |  _ <| |__| | |__| |${N}"
-    echo -e "${C}  |_____\____/ \____/|_| \_\\____/ \____/ ${N}"
-    echo -e "${G}      LXBBR 一键安装脚本 v${VERSION}${N}"
-    echo -e "${Y}   https://github.com/gzy318/LXBBR${N}\n"
+    echo -e "${C}═══════════════════════════════════════${N}"
+    echo -e "${G}      LXBBR 一键安装管理脚本${N}"
+    echo -e "${Y}     ${U}https://github.com/gzy318/LXBBR${N}"
+    echo -e "${Y}     服务器推荐: ${U}https://www.rainyun.com/xls_${N}"
+    echo -e "${Y}     个人博客: ${U}https://twbk.cn${N}"
+    echo -e "${C}═══════════════════════════════════════${N}\n"
 }
 
 # 检测是否已安装
