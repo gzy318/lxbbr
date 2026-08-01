@@ -1,101 +1,242 @@
 # LXBBR — BBR 管理工具箱
 
-开源协议：MIT License
-项目地址：https://github.com/gzy318/LXBBR
+[](https://license/)[https://img.shields.io/badge/license-MIT-blue.svg](https://img.shields.io/badge/license-MIT-blue.svg)  
+[](https://www.gnu.org/software/bash/)[https://img.shields.io/badge/shell-bash-green.svg](https://img.shields.io/badge/shell-bash-green.svg)  
+[](https://github.com/gzy318/LXBBR)[https://img.shields.io/badge/version-1.0-orange.svg](https://img.shields.io/badge/version-1.0-orange.svg)  
+[](https://www.linux.org/)[https://img.shields.io/badge/platform-Linux-lightgrey.svg](https://img.shields.io/badge/platform-Linux-lightgrey.svg)
 
+> 一个开源的 Linux TCP 加速管理工具箱，专注于 BBR 相关功能的配置与管理，让网络优化变得简单高效。
+
+* * *
+
+## 📖 目录
+
+*   项目简介
+    
+*   功能特性
+    
+*   快速开始
+    
+*   使用截图
+    
+*   项目结构
+    
+*   系统要求
+    
+*   更新日志
+    
+*   致谢
+    
+*   联系方式
+    
+
+* * *
 
 ## 项目简介
 
-LXBBR 是一个开源的 Linux TCP 加速管理工具箱，专注于 BBR 相关功能的配置与管理。提供内核升级、算法切换、队列设置、场景优化等一体化操作，适合服务器运维人员快速部署和调优网络性能。
+**LXBBR** 是一个全中文交互的 BBR 管理工具箱，提供以下核心能力：
 
+*   🔍 实时检测 BBR 状态（内核版本、算法、队列、模块加载）
+    
+*   🧠 多版本内核管理（XanMod / LTS / 稳定版）
+    
+*   🔄 多算法一键切换（BBR / BBR2 / BBR3 / BBR Plus / Cubic）
+    
+*   ⚙️ 场景化优化方案（通用 / 低延迟 / 高吞吐）
+    
+*   🚀 智能带宽检测，自动推荐最优配置
+    
+*   🛠️ 一站式全自动优化，新手也能轻松上手
+    
+
+无论你是服务器运维新手还是资深工程师，LXBBR 都能帮助你快速完成 TCP 网络调优。
+
+* * *
 
 ## 功能特性
 
-1. 状态检测
-   显示当前内核版本、BBR 版本、当前算法、队列算法、模块加载状态、可用算法列表
+### 1\. 状态检测
 
-2. 内核管理
-   安装 XanMod 内核（支持 BBRv3）
-   安装 LTS 内核（5.10 / 5.15 / 6.1）
-   升级到最新稳定内核
-   卸载 XanMod 内核
+*   当前内核版本与虚拟化类型
+    
+*   BBR 版本号（若已安装）
+    
+*   当前 TCP 拥塞控制算法
+    
+*   当前队列算法
+    
+*   BBR 模块加载状态
+    
+*   系统可用的算法列表
+    
 
-3. 算法切换
-   原版 BBR + fq
-   BBR + cake
-   BBR + fq_codel
-   BBR2 + fq
-   BBR3 + fq（需 XanMod 内核）
-   BBR Plus + fq
-   切换回 Cubic（关闭加速）
-   手动输入算法名
+### 2\. 内核管理
 
-4. 队列算法独立设置
-   fq（最常用，适合 BBR）
-   fq_codel（低延迟，适合建站）
-   cake（高级流量整形）
-   pfifo_fast（默认，无加速）
+*   安装 XanMod 内核（支持真 BBRv3）
+    
+*   安装 LTS 内核（5.10 / 5.15 / 6.1）
+    
+*   升级到最新稳定内核
+    
+*   卸载 XanMod 内核（安全回滚）
+    
 
-5. 场景优化向导
-   通用优化（BBR + fq）
-   低延迟优先（BBR + fq_codel）
-   高吞吐优先（BBR + cake）
+### 3\. 算法切换
 
-6. 开启 BBR 模块
-   加载 tcp_bbr 模块并配置开机自动加载
+*   原版 BBR + fq
+    
+*   BBR + cake（高吞吐场景）
+    
+*   BBR + fq\_codel（低延迟场景）
+    
+*   BBR2 + fq（下一代 BBR）
+    
+*   BBR3 + fq（需 XanMod 内核）
+    
+*   BBR Plus + fq（魔改版）
+    
+*   切换回 Cubic（关闭加速）
+    
+*   手动输入任意算法名
+    
 
-7. 智能带宽检测优化
-   自动检测服务器带宽，根据带宽大小推荐最优 BBR + 队列组合
+### 4\. 队列算法独立设置
 
-8. TCP 参数调优
-   设置 TCP 缓冲区（4M/16M）
-   启用 TCP Fast Open
-   设置 BBR pacing 参数
-   恢复 sysctl 默认配置
+*   `fq` —— 最常用，适合 BBR
+    
+*   `fq_codel` —— 低延迟，适合建站
+    
+*   `cake` —— 高级流量整形
+    
+*   `pfifo_fast` —— 系统默认，无加速
+    
 
-9. 备份与恢复
-   备份当前 sysctl 配置
-   恢复上次备份
+### 5\. 场景优化向导
 
-10. 系统工具
-    环境预检（检查 root 权限、虚拟化类型、/boot 空间、系统版本、内存大小）
-    清理旧内核（保留当前内核，删除其余旧内核）
-    回滚至默认 Cubic
+*   通用优化（BBR + fq）
+    
+*   低延迟优先（BBR + fq\_codel）
+    
+*   高吞吐优先（BBR + cake）
+    
 
-11. 一键全自动优化
-    自动完成：内核升级 → XanMod 安装 → BBR 模块加载 → 带宽检测 → TCP 缓冲区设置
+### 6\. 开启 BBR 模块
 
-12. 重启服务器
+*   手动加载 `tcp_bbr` 内核模块
+    
+*   配置开机自动加载
+    
 
+### 7\. 智能带宽检测优化
+
+*   使用 `speedtest-cli` 检测服务器实际带宽
+    
+*   根据带宽自动推荐最优 BBR + 队列组合
+    
+*   高带宽（>500Mbit/s）推荐 BBR + cake
+    
+*   标准带宽推荐 BBR + fq
+    
+
+### 8\. TCP 参数调优
+
+*   设置 TCP 缓冲区（rmem/wmem 4M/16M）
+    
+*   启用 TCP Fast Open（TFO）
+    
+*   设置 BBR pacing 参数（pacing\_ss\_ratio / pacing\_ca\_ratio）
+    
+*   恢复 sysctl 默认配置（需有备份）
+    
+
+### 9\. 备份与恢复
+
+*   备份当前 `/etc/sysctl.conf` 配置
+    
+*   恢复上次备份的配置
+    
+
+### 10\. 系统工具
+
+*   环境预检（权限、虚拟化、/boot 空间、系统版本、内存）
+    
+*   清理旧内核（保留当前内核）
+    
+*   回滚至默认 Cubic 算法
+    
+
+### 11\. 一键全自动优化 ⭐
+
+*   自动完成以下全部操作：
+    
+    *   检查虚拟化兼容性
+        
+    *   升级到最新稳定内核
+        
+    *   安装 XanMod 内核（真 BBRv3）
+        
+    *   加载 BBR 模块并设置开机自启
+        
+    *   智能带宽检测并优化
+        
+    *   设置 TCP 缓冲区
+        
+*   完成后提示重启，一键生效
+    
+
+* * *
 
 ## 快速开始
 
-运行主程序（BBR 管理）：
-bash <(curl -s https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh)
+### 运行主程序（BBR 管理工具箱）
 
-或使用 wget：
+使用 `curl`（推荐）：
+
+bash
+
+bash <(curl \-s https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh)
+
+使用 `wget`：
+
+bash
+
 wget -qO- https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh | bash
 
-运行安装管理脚本（安装/更新/卸载）：
-bash <(curl -s https://raw.githubusercontent.com/gzy318/LXBBR/main/install.sh)
+### 运行安装管理脚本（安装/更新/卸载）
 
-快捷命令（无需进入菜单）：
-一键全自动优化：bash <(curl -s https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh) install
-快速查看状态：bash <(curl -s https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh) status
+bash
 
+bash <(curl \-s https://raw.githubusercontent.com/gzy318/LXBBR/main/install.sh)
+
+### 快捷命令（无需进入菜单）
+
+一键全自动优化：
+
+bash
+
+bash <(curl \-s https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh) install
+
+快速查看当前 BBR 状态：
+
+bash
+
+bash <(curl \-s https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh) status
+
+* * *
 
 ## 使用截图
 
-运行后会显示如下界面：
+运行主程序后，显示如下主菜单界面：
+
+text
 
 ═══════════════════════════════════════
           LXBBR v1.0
         BBR 管理工具箱
      https://github.com/gzy318/LXBBR
-     服务器推荐: https://www.rainyun.com/xls_
+     服务器推荐: https://www.rainyun.com/xls\_
      个人博客: https://twbk.cn
 ═══════════════════════════════════════
-
 ═══════════════════════════════════════
  1. 检测 BBR 状态
  2. 内核管理
@@ -112,45 +253,85 @@ bash <(curl -s https://raw.githubusercontent.com/gzy318/LXBBR/main/install.sh)
  0. 退出
 ═══════════════════════════════════════
 
+选择选项后，每一步操作都有清晰的提示和结果反馈。
+
+* * *
 
 ## 项目结构
 
-LXBBR/
-├── lxbbr.sh          # 主程序，BBR 管理工具箱
-├── install.sh        # 一键安装/更新/卸载脚本
-└── README.md         # 项目说明文档
+text
 
+LXBBR/
+├── lxbbr.sh          # 主程序 —— BBR 管理工具箱
+├── install.sh        # 一键安装/更新/卸载脚本
+└── README.md         # 项目说明文档（本文件）
+
+* * *
 
 ## 系统要求
 
-操作系统：Debian 9+ / Ubuntu 18.04+ / CentOS 7+
-权限要求：需要 root 权限
-虚拟化限制：不支持 OpenVZ（无法更换内核）
+| 项目 | 要求 |
+| --- | --- |
+| 操作系统 | Debian 9+ / Ubuntu 18.04+ / CentOS 7+ |
+| 权限 | 需要 root 权限 |
+| 虚拟化 | 不支持 OpenVZ（无法更换内核） |
+| 网络 | 安装内核时需要连接互联网 |
 
+* * *
 
 ## 更新日志
 
-v1.0（2026-08-01）
-- 首个正式版本发布
-- 支持 BBR / BBR2 / BBR3 / BBR Plus 切换
-- 支持 XanMod / LTS / 稳定版内核安装
-- 新增智能带宽检测优化
-- 新增一键全自动优化
-- 支持快捷命令 install / status
-- 新增安装管理脚本 install.sh
+### v1.0（2026-08-01）
 
+*   🎉 首个正式版本发布
+    
+*   支持 BBR / BBR2 / BBR3 / BBR Plus / Cubic 切换
+    
+*   支持 XanMod / LTS / 稳定版内核安装
+    
+*   新增智能带宽检测优化功能
+    
+*   新增一键全自动优化功能
+    
+*   支持快捷命令 `install` / `status`
+    
+*   新增安装管理脚本 `install.sh`
+    
+*   全中文交互，彩色菜单显示
+    
+
+* * *
 
 ## 致谢
 
-XanMod - 高性能 Linux 内核
-BBR Plus - 魔改 BBR
-speedtest-cli - 带宽测试工具
+本项目在开发过程中参考了以下优秀开源项目，在此表示感谢：
 
+*   [XanMod](https://xanmod.org/) —— 高性能 Linux 内核，提供真 BBRv3 支持
+    
+*   [BBR Plus](https://github.com/xiaofd/bbrplus) —— 魔改 BBR，高并发优化
+    
+*   [speedtest-cli](https://github.com/sivel/speedtest-cli) —— 带宽测试工具
+    
+*   [ELRepo](https://elrepo.org/) —— CentOS 内核仓库
+    
+
+* * *
 
 ## 联系方式
 
-GitHub Issues：https://github.com/gzy318/LXBBR/issues
-个人博客：https://twbk.cn
-服务器推荐：https://www.rainyun.com/xls_
+*   **GitHub Issues**：[https://github.com/gzy318/LXBBR/issues](https://github.com/gzy318/LXBBR/issues)
+    
+*   **个人博客**：[https://twbk.cn](https://twbk.cn/)
+    
+*   **服务器推荐**：[https://www.rainyun.com/xls\_](https://www.rainyun.com/xls_)
+    
 
-如果这个项目对你有帮助，欢迎 Star 支持！
+* * *
+
+## Star 支持
+
+如果这个项目对你有帮助，欢迎点击右上角 **Star ⭐** 支持一下，你的支持是我持续更新的动力！
+
+* * *
+
+**LXBBR** —— 让 BBR 管理更简单 🚀
