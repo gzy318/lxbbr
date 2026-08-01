@@ -1,6 +1,6 @@
 #!/bin/bash
 # ==========================================
-# LXBBR - BBR 管理工具箱 v1.0
+# LXBBR - 纯 BBR 管理工具箱 v1.0
 # 项目: https://github.com/gzy318/LXBBR
 # ==========================================
 
@@ -116,11 +116,18 @@ install_lts_kernel() {
     esac
     distro=$(get_distro)
     if [[ "$distro" == "debian" ]]; then
-        apt install -y linux-image-${kver}.*-amd64 linux-headers-${kver}.*-amd64 2>/dev/null || \
-        apt install -y linux-image-${kver}.0-* 2>/dev/null || \
-        echo -e "${R}无法自动安装，请手动安装${N}"
+        echo -e "${Y}正在搜索内核包...${N}"
+        pkg=$(apt-cache search linux-image-${kver} | grep -E "linux-image-${kver}\.[0-9]+-[0-9]+-amd64" | head -1 | awk '{print $1}')
+        if [[ -n "$pkg" ]]; then
+            apt install -y "$pkg"
+            pkg_hdr=$(apt-cache search linux-headers-${kver} | grep -E "linux-headers-${kver}\.[0-9]+-[0-9]+-amd64" | head -1 | awk '{print $1}')
+            [[ -n "$pkg_hdr" ]] && apt install -y "$pkg_hdr"
+        else
+            echo -e "${R}未找到 ${kver} 内核包，尝试安装最新 LTS${N}"
+            upgrade_kernel_normal
+        fi
     elif [[ "$distro" == "centos" ]]; then
-        yum --enablerepo=elrepo-kernel install -y kernel-lt-${kver}
+        yum --enablerepo=elrepo-kernel install -y kernel-lt
         grub2-set-default 0 && grub2-mkconfig -o /boot/grub2/grub.cfg
     else
         echo -e "${R}不支持${N}"; return
@@ -407,7 +414,10 @@ auto_full() {
     install_xanmod
     load_bbr_module
     auto_optimize
-    tcp_tune <<< "1" 2>/dev/null
+    # 直接调用 tcp_tune 中的缓冲区设置
+    grep -q "net.ipv4.tcp_rmem" /etc/sysctl.conf || echo "net.ipv4.tcp_rmem = 4096 4194304 16777216" >> /etc/sysctl.conf
+    grep -q "net.ipv4.tcp_wmem" /etc/sysctl.conf || echo "net.ipv4.tcp_wmem = 4096 4194304 16777216" >> /etc/sysctl.conf
+    sysctl -p 2>/dev/null
     
     echo -e "${G}✅ 全自动优化完成！建议重启服务器。${N}"
     read -p "是否现在重启? [y/N] " reboot_confirm
