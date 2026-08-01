@@ -220,7 +220,6 @@ bash <(curl \-s https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh) st
 
 ## 项目结构
 
-text
 
 LXBBR/
 ├── lxbbr.sh          # 主程序 —— BBR 管理工具箱
