@@ -1,9 +1,5 @@
 # LXBBR — BBR 管理工具箱
 
-[](https://license/)[https://img.shields.io/badge/license-MIT-blue.svg](https://img.shields.io/badge/license-MIT-blue.svg)  
-[](https://www.gnu.org/software/bash/)[https://img.shields.io/badge/shell-bash-green.svg](https://img.shields.io/badge/shell-bash-green.svg)  
-[](https://github.com/gzy318/LXBBR)[https://img.shields.io/badge/version-1.0-orange.svg](https://img.shields.io/badge/version-1.0-orange.svg)  
-[](https://www.linux.org/)[https://img.shields.io/badge/platform-Linux-lightgrey.svg](https://img.shields.io/badge/platform-Linux-lightgrey.svg)
 
 > 一个开源的 Linux TCP 加速管理工具箱，专注于 BBR 相关功能的配置与管理，让网络优化变得简单高效。
 
@@ -222,38 +218,7 @@ bash
 
 bash <(curl \-s https://raw.githubusercontent.com/gzy318/LXBBR/main/lxbbr.sh) status
 
-* * *
 
-## 使用截图
-
-运行主程序后，显示如下主菜单界面：
-
-text
-
-═══════════════════════════════════════
-          LXBBR v1.0
-        BBR 管理工具箱
-     https://github.com/gzy318/LXBBR
-     服务器推荐: https://www.rainyun.com/xls\_
-     个人博客: https://twbk.cn
-═══════════════════════════════════════
-═══════════════════════════════════════
- 1. 检测 BBR 状态
- 2. 内核管理
- 3. 切换 BBR 算法
- 4. 设置队列算法
- 5. 场景优化向导
- 6. 开启 BBR 模块
- 7. 智能带宽检测优化
- 8. TCP 参数调优
- 9. 备份/恢复 sysctl
- 10. 系统工具
- 11. 一键全自动优化 ★
- 12. 重启服务器
- 0. 退出
-═══════════════════════════════════════
-
-选择选项后，每一步操作都有清晰的提示和结果反馈。
 
 * * *
 
